@@ -17,6 +17,5 @@
 			<version>5.7.1</version>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
 </project>
