@@ -5,7 +5,8 @@ public class Account {
      private double balance;
      private AccountStatus status;
      private AccountType type;
-	public int getAccountId() {
+	
+      public int getAccountId() {
 		return accountId;
 	}
 	public void setAccountId(int accountId) {
