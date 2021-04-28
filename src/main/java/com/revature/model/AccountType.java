@@ -1,9 +1,10 @@
 package com.revature.model;
 
-public class AccoutType {
+public class AccountType {
 	
 	private int typeId;
 	private String type;
+	
 	public int getTypeId() {
 		return typeId;
 	}
@@ -20,12 +21,12 @@ public class AccoutType {
 	public String toString() {
 		return "AccoutType [typeId=" + typeId + ", type=" + type + "]";
 	}
-	public AccoutType(int typeId, String type) {
+	public AccountType(int typeId, String type) {
 		super();
 		this.typeId = typeId;
 		this.type = type;
 	}
-	public AccoutType() {
+	public AccountType() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
