@@ -4,12 +4,11 @@ import java.util.List;
 
 import com.revature.model.Account;
 
-public class AccountDao implements DaoContract<Account, Integer>{
+public class AccountStatusDao implements DaoContract <Account, Integer> {
 
 	@Override
 	public List<Account> findAll() {
-		//List<Account> account = new LinkedList<>();
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
 
