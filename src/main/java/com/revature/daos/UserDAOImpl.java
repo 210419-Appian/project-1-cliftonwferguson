@@ -1,6 +1,10 @@
 package com.revature.daos;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.model.Role;
@@ -27,15 +31,33 @@ public class UserDAOImpl implements UserDAO {
 	    private String lastName;
 	    private String email;
 	    private Role role;
+	 * @throws  
 	  */
 			
 
 	@Override
 	public List<User> findAll() {
-		//try(Connection conn = ConnectionUtil.getConnection()) {
+		try(Connection conn = ConnectionUtil.getConnection()) {
 			
-		//	String sql = "SElect * FROM user_table;";
-	//	}
+			String sql = "SElect * FROM user_table;";
+			
+			Statement statement = conn.createStatement();
+			
+			ResultSet result = statement.executeQuery(sql);
+			
+			List<User> list = new ArrayList<>();
+			
+			while (result.next()) {
+				User user = new User();
+				user.setUserId(result.getInt("user_id"));
+				user.setUsername(result.getString("username"));
+				user.setPassword(result.getString("pass_word"));
+				user.setFirstName(result.getString("first_name"));
+				user.setLastName(result.getString("last_name"));
+				user.setEmail(result.getString("email"));
+				null
+			}
+		}
 		return null;
 	}
 
