@@ -17,7 +17,6 @@ public class ConnectionUtil {
 		    String url = "jdbc:postgresql://p1bank.cr3mdvbkdi0b.us-east-2.rds.amazonaws.com/postgres";
 			String username = "postgres"; //you can use environment variables to hide the raw values to protect this info
 			String password = "password"; //System.getenv("keyName")
-			
 			return DriverManager.getConnection(url, username, password);
 		 }
 	 

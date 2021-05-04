@@ -3,7 +3,7 @@ package com.revature.model;
 public class Account {
      private int accountId;
      private double balance;
-     private AccountStatus status;
+     private AccountStatus statusId;
      private AccountType type;
      private User user;
      
@@ -19,11 +19,11 @@ public class Account {
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
-	public AccountStatus getStatus() {
-		return status;
+	public AccountStatus getStatusId() {
+		return statusId;
 	}
-	public void setStatus(AccountStatus status) {
-		this.status = status;
+	public void setStatusId(AccountStatus statusId) {
+		this.statusId = statusId;
 	}
 	public AccountType getType() {
 		return type;
@@ -45,7 +45,7 @@ public class Account {
 		long temp;
 		temp = Double.doubleToLongBits(balance);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + ((statusId == null) ? 0 : statusId.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
@@ -63,10 +63,10 @@ public class Account {
 			return false;
 		if (Double.doubleToLongBits(balance) != Double.doubleToLongBits(other.balance))
 			return false;
-		if (status == null) {
-			if (other.status != null)
+		if (statusId == null) {
+			if (other.statusId != null)
 				return false;
-		} else if (!status.equals(other.status))
+		} else if (!statusId.equals(other.statusId))
 			return false;
 		if (type == null) {
 			if (other.type != null)
@@ -82,21 +82,21 @@ public class Account {
 	}
 	@Override
 	public String toString() {
-		return "Account [accountId=" + accountId + ", balance=" + balance + ", status=" + status + ", type=" + type
+		return "Account [accountId=" + accountId + ", balance=" + balance + ", statusId=" + statusId + ", type=" + type
 				+ ", user=" + user + "]";
 	}
-	public Account(int accountId, double balance, AccountStatus status, AccountType type, User user) {
+	public Account(int accountId, double balance, AccountStatus statusId, AccountType type, User user) {
 		super();
 		this.accountId = accountId;
 		this.balance = balance;
-		this.status = status;
+		this.statusId = statusId;
 		this.type = type;
 		this.user = user;
 	}
-	public Account(double balance, AccountStatus status, AccountType type, User user) {
+	public Account(double balance, AccountStatus statusId, AccountType type, User user) {
 		super();
 		this.balance = balance;
-		this.status = status;
+		this.statusId = statusId;
 		this.type = type;
 		this.user = user;
 	}
@@ -104,5 +104,7 @@ public class Account {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+     
+	
      
 }
