@@ -4,13 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.model.Role;
 import com.revature.utils.ConnectionUtil;
 
-public class RoleDAOImpl implements roleDAO{
+public class RoleDAOImpl implements RoleDAO{
 
 	@Override
 	public List<Role> findAll() {
@@ -18,7 +19,7 @@ public class RoleDAOImpl implements roleDAO{
 			
 			String sql = "Select * FROM roles;";
 			
-			PreparedStatement statement = conn.prepareStatement(sql);
+            Statement statement = conn.createStatement();
 			
 			ResultSet result = statement.executeQuery(sql);
 			
