@@ -1,5 +1,6 @@
 package com.revature.daos;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,11 +8,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.revature.model.Role;
 import com.revature.model.User;
 import com.revature.utils.ConnectionUtil;
 
 public class UserDAOImpl implements UserDAO {
+	private static RoleDAO rDAO = new RoleDAOImpl();
 	
 	/**
 	 * user_id SERIAL PRIMARY KEY,
@@ -48,15 +49,24 @@ public class UserDAOImpl implements UserDAO {
 			List<User> list = new ArrayList<>();
 			
 			while (result.next()) {
-				User user = new User();
-				user.setUserId(result.getInt("user_id"));
-				user.setUsername(result.getString("username"));
-				user.setPassword(result.getString("pass_word"));
-				user.setFirstName(result.getString("first_name"));
-				user.setLastName(result.getString("last_name"));
-				user.setEmail(result.getString("email"));
+				User user = new User(
+				result.getInt("user_id"),
+				result.getString("username"),
+				result.getString("pass_word"),
+				result.getString("first_name"),
+				result.getString("last_name"),
+				result.getString("email"),
 				null
-			}
+			);
+				String uUser = result.getString("role");
+				if(uUser != null) {
+					user.setRole(rDAO.findByString(uUser));
+				}
+				list.add(user);
+				}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return null;
 	}

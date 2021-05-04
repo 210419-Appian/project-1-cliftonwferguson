@@ -5,5 +5,7 @@ import java.util.List;
 import com.revature.model.Role;
 
 public interface RoleDAO {
-	List<Role> findAll();
+	public List<Role> findAll();
+	public Role findById(int user_id);
+	public Role findByString(String role);
 }

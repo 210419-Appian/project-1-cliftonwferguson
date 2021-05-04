@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.model.Role;
+import com.revature.model.User;
 import com.revature.utils.ConnectionUtil;
 
 public class RoleDAOImpl implements RoleDAO{
@@ -48,6 +49,33 @@ public class RoleDAOImpl implements RoleDAO{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public Role findById(int user_id) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			
+			String sql = "SELECT * FROM roles WHERE roleId = ?;";
+			
+			PreparedStatement statement = conn.prepareStatement(sql);
+			
+			statement.setInt(1, user_id);
+			
+			ResultSet result = statement.executeQuery();
+			
+			Role role = new Role();
+			
+			while (result.next() ) {
+				role.setRoleId(result.getInt("user_id"));
+				role.setRole(result.getString("user_role"));
+			}
+			
+			return role;
+		}catch (SQLException e) {
+			e.printStackTrace();
+		
 		}
 		return null;
 	}
