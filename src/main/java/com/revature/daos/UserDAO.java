@@ -1,0 +1,14 @@
+package com.revature.daos;
+
+import java.util.List;
+
+import com.revature.model.User;
+
+public interface UserDAO {
+    
+	public List<User> findAll();
+	public User findByName(String user);
+	public boolean addUser(User user);
+	
+	
+}
