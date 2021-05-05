@@ -3,6 +3,7 @@ package com.revature.model;
 public class Role {
 	private int roleId;
 	private String role;
+
 	
 	public int getRoleId() {
 		return roleId;
@@ -16,6 +17,7 @@ public class Role {
 	public void setRole(String role) {
 		this.role = role;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

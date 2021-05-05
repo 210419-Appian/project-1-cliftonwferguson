@@ -15,13 +15,13 @@ public class UserDAOImpl implements UserDAO {
 	private static RoleDAO rDAO = new RoleDAOImpl();
 	
 	/**
-	 * user_id SERIAL PRIMARY KEY,
-	   user_name varchar(30) NOT NULL UNIQUE,
-	   pass_word varchar(15) NOT null,
-	   first_name varchar(15) NOT null,
-	   last_name varchar(15) NOT NULL,
-	   email varchar(30) NOT NULL,
-	   user_role varchar(30) REFERENCES roles(user_role)
+	 *    user_id SERIAL PRIMARY KEY,
+   user_name varchar(30) NOT NULL UNIQUE,
+   pass_word varchar(15) NOT null,
+   first_name varchar(15) NOT null,
+   last_name varchar(15) NOT NULL,
+   email varchar(30) NOT NULL,
+   user_role INTEGER REFERENCES roles(role_id)
 	 */
 	
 	 /**
@@ -51,17 +51,17 @@ public class UserDAOImpl implements UserDAO {
 			while (result.next()) {
 				User user = new User(
 				result.getInt("user_id"),
-				result.getString("username"),
+				result.getString("user_name"),
 				result.getString("pass_word"),
 				result.getString("first_name"),
 				result.getString("last_name"),
 				result.getString("email"),
 				null
 			);
-				String uUser = result.getString("role");
-				if(uUser != null) {
-					user.setRole(rDAO.findByString(uUser));
-				}
+				String uUser = result.getString("user_role");
+				//if(uUser != null) {
+				//	user.setRole(rDAO.findByString(uUser));
+			//	}
 				list.add(user);
 				}
 			return list;

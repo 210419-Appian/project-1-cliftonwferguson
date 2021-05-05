@@ -54,21 +54,21 @@ public class RoleDAOImpl implements RoleDAO{
 	}
 
 	@Override
-	public Role findById(int user_id) {
+	public Role findById(int role_id) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			
 			String sql = "SELECT * FROM roles WHERE roleId = ?;";
 			
 			PreparedStatement statement = conn.prepareStatement(sql);
 			
-			statement.setInt(1, user_id);
+			statement.setInt(1, role_id);
 			
 			ResultSet result = statement.executeQuery();
 			
 			Role role = new Role();
 			
 			while (result.next() ) {
-				role.setRoleId(result.getInt("user_id"));
+				role.setRoleId(result.getInt("role_id"));
 				role.setRole(result.getString("user_role"));
 			}
 			
@@ -79,5 +79,33 @@ public class RoleDAOImpl implements RoleDAO{
 		}
 		return null;
 	}
+
+	@Override
+	public List<Role> findByString(String role) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+
+			String sql = "SELECT * FROM roles WHERE user_role = ?;";
+
+			PreparedStatement statement = conn.prepareStatement(sql);
+			
+			statement.setString(1, role);
+
+			ResultSet result = statement.executeQuery();
+			
+			Role role1  = new Role();
+
+			while (result.next()) {
+				role1.setRoleId(result.getInt("role_id"));
+				role1.setRole(result.getString("user_role"));
+			}
+            System.out.println(role1);
+			return (List<Role>) role1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	
 
 }

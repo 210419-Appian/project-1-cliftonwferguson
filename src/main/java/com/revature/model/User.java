@@ -9,6 +9,7 @@ public class User {
     private String email;
     private Role role;
     
+    
 	public int getUserId() {
 		return userId;
 	}
