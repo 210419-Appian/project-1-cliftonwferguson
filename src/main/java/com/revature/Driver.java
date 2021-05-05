@@ -24,7 +24,9 @@ public class Driver {
 		System.out.println("=======================");
 		
 		List<User> uList = uService.showUsers();
-		System.out.println(uList);
+		
+		for(User u : uList)
+		System.out.println(u);
 		System.out.println("==========================");
 		
 		List<AccountStatus> aslist = asService.getAllStatus();
