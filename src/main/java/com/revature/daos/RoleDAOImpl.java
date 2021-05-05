@@ -57,7 +57,7 @@ public class RoleDAOImpl implements RoleDAO{
 	public Role findById(int role_id) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			
-			String sql = "SELECT * FROM roles WHERE roleId = ?;";
+			String sql = "SELECT * FROM roles WHERE role_id = ?;";
 			
 			PreparedStatement statement = conn.prepareStatement(sql);
 			

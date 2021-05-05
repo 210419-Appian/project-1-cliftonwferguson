@@ -58,10 +58,10 @@ public class UserDAOImpl implements UserDAO {
 				result.getString("email"),
 				null
 			);
-				String uUser = result.getString("user_role");
-				//if(uUser != null) {
-				//	user.setRole(rDAO.findByString(uUser));
-			//	}
+				int uUser = result.getInt("user_role");
+				
+					user.setRole(rDAO.findById(uUser));
+				
 				list.add(user);
 				}
 			return list;
