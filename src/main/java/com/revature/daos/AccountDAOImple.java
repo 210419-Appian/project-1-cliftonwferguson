@@ -17,6 +17,7 @@ public class AccountDAOImple implements AccountDAO{
 	
 	private static AccountStatusDAO accDao = new AccountStatusDAOImpl();
 	private static AccountTypeDAO atDoa = new AccountTypeDAOImpl();
+	private static UserDAO uDao = new UserDAOImpl();
 	
 	
 	/*
@@ -62,6 +63,8 @@ public class AccountDAOImple implements AccountDAO{
 				  ac.setStatusId(accDao.findById(accStatus));
 				int at = result.getInt("account_type");
 				 ac.setType(atDoa.findById(at));
+				int ui = result.getInt("user_id");
+				 ac.setUser(uDao.findById(ui));
 				list.add(ac);
 			}
 			return list;
@@ -72,11 +75,7 @@ public class AccountDAOImple implements AccountDAO{
 	}	
 	
 
-	@Override
-	public Account findByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public boolean addAccount(Account account) {
@@ -88,6 +87,13 @@ public class AccountDAOImple implements AccountDAO{
 	public boolean updateAccount(Account account) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+
+	@Override
+	public Account findByUser(String name) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

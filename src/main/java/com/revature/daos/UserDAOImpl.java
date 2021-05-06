@@ -1,12 +1,14 @@
 package com.revature.daos;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.revature.model.AccountType;
 import com.revature.model.User;
 import com.revature.utils.ConnectionUtil;
 
@@ -33,13 +35,50 @@ public class UserDAOImpl implements UserDAO {
 	    private Role role;
 	 * @throws  
 	  */
+	
+	@Override
+	public User findById(int id) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+
+			String sql = "SELECT * FROM user_table WHERE user_id = "+id+";";
+
+			Statement statement = conn.createStatement();
+
+			ResultSet result = statement.executeQuery(sql);
+
+			User u = null;
+
+			while (result.next()) {
+				u = new User(
+						result.getInt("user_id"), 
+						result.getString("user_name"), 
+						result.getString("pass_word"), 
+						result.getString("first_name"), 
+						result.getString("last_name"), 
+						result.getString("email"),
+						null
+						);
+				int uUser = result.getInt("user_role");
+				
+					u.setRole(rDAO.findById(uUser));
+				
+			}
+
+			return u;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+		
+	}
 			
 
 	@Override
 	public List<User> findAll() {
 		try(Connection conn = ConnectionUtil.getConnection()) {
 			
-			String sql = "SElect * FROM user_table;";
+			String sql = "SElECT * FROM user_table;";
 			
 			Statement statement = conn.createStatement();
 			
@@ -87,5 +126,7 @@ public class UserDAOImpl implements UserDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 }

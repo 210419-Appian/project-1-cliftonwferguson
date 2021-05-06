@@ -11,6 +11,7 @@ public interface UserDAO {
 	public User findByName(String user);
 	public boolean addUser(User user);
 	public List<User> findByAccount();
+	public User findById(int id);
 	
 	
 }
