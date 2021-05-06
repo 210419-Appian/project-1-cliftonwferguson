@@ -3,10 +3,12 @@ package com.revature
 
 import java.util.List;
 
+import com.revature.model.Account;
 import com.revature.model.AccountStatus;
 import com.revature.model.AccountType;
 import com.revature.model.Role;
 import com.revature.model.User;
+import com.revature.service.AccountService;
 import com.revature.service.AccountStatusService;
 import com.revature.service.AccountTypeService;
 import com.revature.service.RoleService;
@@ -18,7 +20,8 @@ public class Driver {
 	private static UserService uService = new UserService();
 	private static AccountStatusService asService = new AccountStatusService();
 	private static AccountTypeService atService = new AccountTypeService();
-
+    private static AccountService acService = new AccountService();
+	
 	public static void main(String[] args) {
 		
 		System.out.println("All Roles");
@@ -58,6 +61,16 @@ public class Driver {
 		 
 		 for (AccountType at : atlist)
 			 System.out.println(at);
+		 
+		 System.out.println("========================");
+		 
+		 System.out.println("All Accounts");
+		 System.out.println(" ");
+		 
+		 List<Account> aclist = acService.getAllAccounts();
+		 
+		 for(Account ac : aclist)
+			 System.out.println(ac);
 	}
 
 }

@@ -8,6 +8,7 @@ public interface AccountStatusDAO {
 
 	List<AccountStatus> findAll();
 	AccountStatus findByStatus(String AccountStatus);
+	public AccountStatus findById(int id);
 	
 	
 }

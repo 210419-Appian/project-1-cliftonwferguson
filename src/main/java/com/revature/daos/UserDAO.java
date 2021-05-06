@@ -10,7 +10,7 @@ public interface UserDAO {
 	public List<User> findAll();
 	public User findByName(String user);
 	public boolean addUser(User user);
-	//public List<User> findByAccount()
+	public List<User> findByAccount();
 	
 	
 }

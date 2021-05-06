@@ -1,6 +1,5 @@
 package com.revature.daos;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -81,6 +80,12 @@ public class UserDAOImpl implements UserDAO {
 	public boolean addUser(User user) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public List<User> findByAccount() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

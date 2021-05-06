@@ -1,6 +1,7 @@
 package com.revature.daos;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,6 +19,32 @@ public class AccountStatusDAOImpl implements AccountStatusDAO {
     status varchar(30) NOT NULL UNIQUE 
  );
     */
+	
+	@Override
+	public AccountStatus findById(int id) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+
+			String sql = "SELECT * FROM accountstatus WHERE status_id = ?;";
+
+			PreparedStatement statement = conn.prepareStatement(sql);
+			
+			statement.setInt(1, id);
+			
+			ResultSet result = statement.executeQuery();
+			
+			AccountStatus accountstatus = new AccountStatus();
+			
+			while (result.next()) {
+				accountstatus.setStatusId(result.getInt("status_id"));
+				accountstatus.setStatus(result.getString("status"));
+			}
+			return accountstatus;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+	
 
 	@Override
 	public List<AccountStatus> findAll() {
@@ -49,5 +76,7 @@ public class AccountStatusDAOImpl implements AccountStatusDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 }
