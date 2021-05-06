@@ -18,5 +18,8 @@ public class AccountService {
 	public Account getoneAccount(int id) {
 		return acDao.findById(id);
 	}
-
+    
+	public List<Account> getAllByStatus(int id){
+		return acDao.findByStatusId(id);
+	}
 }

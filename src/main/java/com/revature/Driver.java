@@ -87,6 +87,25 @@ public class Driver {
 		 
 		 User user1 = uService.getoneUser(2);
 		 System.out.println(user1);
+		 
+		 System.out.println("======================");
+		 
+		 System.out.println("Find Account by Status id");
+		 System.out.println(" ");
+		 
+		 List<Account> acStatus2 = acService.getAllByStatus(2);
+		 
+		 System.out.println("Status id 2");
+		 for (Account as2 : acStatus2)
+			 System.out.println(as2);
+		    System.out.println(" ");
+		    
+		 List<Account> acStatus1 = acService.getAllByStatus(1);
+		 
+		 System.out.println("Status id 1");
+		 for (Account as1 : acStatus1)
+			 System.out.println(as1);
+		 
 	}
 
 }
