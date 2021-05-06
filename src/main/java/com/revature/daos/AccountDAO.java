@@ -11,5 +11,6 @@ public interface AccountDAO {
 	public boolean updateAccount(Account account);
 	public Account findById(int id);
 	public List<Account> findByStatusId(int id);
+	public List<Account> findByUserId(int id);
 	
 }

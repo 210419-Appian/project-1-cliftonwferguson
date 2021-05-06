@@ -40,6 +40,12 @@ public class AccountDAOImple implements AccountDAO{
 	 */
 	
 	@Override
+	public List<Account> findByUserId(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
 	public List<Account> findByStatusId(int id) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
 
@@ -160,7 +166,6 @@ public class AccountDAOImple implements AccountDAO{
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 
 
 }
