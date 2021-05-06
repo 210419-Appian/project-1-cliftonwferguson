@@ -41,9 +41,40 @@ public class AccountDAOImple implements AccountDAO{
 	
 	@Override
 	public List<Account> findByUserId(int id) {
-		// TODO Auto-generated method stub
+		try (Connection conn = ConnectionUtil.getConnection()) {
+
+			String sql = "SELECT * FROM account WHERE user_id = "+id+";";
+
+			Statement statement = conn.createStatement();
+
+			ResultSet result = statement.executeQuery(sql);
+
+			List<Account> list = new ArrayList<>();
+
+			while (result.next()) {
+				Account uid = new Account(
+						result.getInt("account_id"),
+						result.getDouble("balance"),
+						null, // account_status_id INTEGER REFERENCES accountstatus(status_id),
+						null, // account_type varchar(30) REFERENCES accounttype(type),
+						null // user_id integer REFERENCES user_table(user_id)
+						);
+				int accStatus = result.getInt("account_status_id");
+				  uid.setStatusId(accDao.findById(accStatus));
+				int at = result.getInt("account_type");
+				 uid.setType(atDoa.findById(at));
+				int ui = result.getInt("user_id");
+				 uid.setUser(uDao.findById(ui));
+				 list.add(uid);
+			}
+
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
+	
 	
 	@Override
 	public List<Account> findByStatusId(int id) {

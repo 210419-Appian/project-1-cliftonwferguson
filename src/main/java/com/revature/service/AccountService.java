@@ -19,7 +19,12 @@ public class AccountService {
 		return acDao.findById(id);
 	}
     
-	public List<Account> getAllByStatus(int id){
+	public List<Account> getAllByStatus(int id) {
 		return acDao.findByStatusId(id);
 	}
+	
+	public List<Account> getAllByUser(int id) {
+		return acDao.findByUserId(id);
+	}
+	
 }
