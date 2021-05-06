@@ -10,5 +10,5 @@ public interface AccountDAO {
 	Account findByUser(String name);
 	boolean addAccount(Account account);
 	public boolean updateAccount(Account account);
-	
+	Account findById(int id);
 }

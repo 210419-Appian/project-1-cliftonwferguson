@@ -71,6 +71,22 @@ public class Driver {
 		 
 		 for(Account ac : aclist)
 			 System.out.println(ac);
+		 
+		 System.out.println("==================");
+		 
+		 System.out.println("Find Account by id");
+		 System.out.println(" ");
+		 
+		 Account account1 = acService.getoneAccount(2);
+		 System.out.println(account1);
+		 
+		 System.out.println("======================");
+		 
+		 System.out.println("Find User by id");
+		 System.out.println(" ");
+		 
+		 User user1 = uService.getoneUser(2);
+		 System.out.println(user1);
 	}
 
 }

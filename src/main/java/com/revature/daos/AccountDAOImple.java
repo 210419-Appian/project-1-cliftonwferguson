@@ -38,6 +38,41 @@ public class AccountDAOImple implements AccountDAO{
       private AccountType type;
       private User user;
 	 */
+	
+	@Override
+	public Account findById(int id) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+
+			String sql = "SELECT * FROM account WHERE account_id = "+id+";";
+
+			Statement statement = conn.createStatement();
+
+			ResultSet result = statement.executeQuery(sql);
+
+			Account ac = null;
+
+			while (result.next()) {
+				 ac = new Account(
+						result.getInt("account_id"),
+						result.getDouble("balance"),
+						null, // account_status_id INTEGER REFERENCES accountstatus(status_id),
+						null, // account_type varchar(30) REFERENCES accounttype(type),
+						null // user_id integer REFERENCES user_table(user_id)
+						);
+				int accStatus = result.getInt("account_status_id");
+				  ac.setStatusId(accDao.findById(accStatus));
+				int at = result.getInt("account_type");
+				 ac.setType(atDoa.findById(at));
+				int ui = result.getInt("user_id");
+				 ac.setUser(uDao.findById(ui));
+			}
+
+			return ac;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	@Override
 	public List<Account> findAll() {
@@ -95,5 +130,7 @@ public class AccountDAOImple implements AccountDAO{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }

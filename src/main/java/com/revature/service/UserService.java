@@ -13,5 +13,9 @@ public class UserService {
 	   return uDAO.findAll();
    }
    
+   public User getoneUser(int id) {
+		return uDAO.findById(id);
+	}
+   
 
 }

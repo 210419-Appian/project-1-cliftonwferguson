@@ -14,5 +14,9 @@ public class AccountService {
 		List<Account> list = acDao.findAll();
 		return list;
 	}
+	
+	public Account getoneAccount(int id) {
+		return acDao.findById(id);
+	}
 
 }
