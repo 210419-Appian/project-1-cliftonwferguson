@@ -16,14 +16,16 @@ import com.revature.utils.ConnectionUtil;
 public class AccountDAOImple implements AccountDAO{
 	
 	private static AccountStatusDAO accDao = new AccountStatusDAOImpl();
+	private static AccountTypeDAO atDoa = new AccountTypeDAOImpl();
+	
 	
 	/*
 	 *  CREATE TABLE account (
         account_id SERIAL PRIMARY KEY,
         balance double precision NOT NULL,
-        account_status_id INTEGER REFERENCES accountstatus(status_id), // First create the find by Id method in account status dao
-        account_type varchar(30) REFERENCES accounttype(type),
-        user_id integer REFERENCES user_table(user_id)
+        account_status_id INTEGER REFERENCES accountstatus(status_id), // First create the find by Id method in account status dao.
+        account_type INTEGER REFERENCES accounttype(type_id),  // Next, create the find by id method in the account type dao.
+        user_id integer REFERENCES user_table(user_id) //finally, create the find by id method in the user dao.
   )
 	 */
 	
@@ -53,11 +55,13 @@ public class AccountDAOImple implements AccountDAO{
 						result.getInt("account_id"),
 						result.getDouble("balance"),
 						null, // account_status_id INTEGER REFERENCES accountstatus(status_id),
-						null,
-						null
+						null, // account_type varchar(30) REFERENCES accounttype(type),
+						null // user_id integer REFERENCES user_table(user_id)
 						);
 				int accStatus = result.getInt("account_status_id");
 				  ac.setStatusId(accDao.findById(accStatus));
+				int at = result.getInt("account_type");
+				 ac.setType(atDoa.findById(at));
 				list.add(ac);
 			}
 			return list;

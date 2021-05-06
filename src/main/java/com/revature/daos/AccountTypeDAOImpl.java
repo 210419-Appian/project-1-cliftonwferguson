@@ -1,6 +1,7 @@
 package com.revature.daos;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,9 +20,36 @@ public class AccountTypeDAOImpl implements AccountTypeDAO{
        type varchar(30) NOT NULL unique
        );
 	 */
+	 
+  
+	@Override
+	public AccountType findById(int id) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+
+			String sql = "SELECT * FROM accounttype WHERE type_id = ?;";
+
+			PreparedStatement statement = conn.prepareStatement(sql);
+			
+			statement.setInt(1, id);
+			
+			ResultSet result = statement.executeQuery();
+			
+			AccountType acounttype = new AccountType();
+			
+			while (result.next()) {
+				acounttype.setTypeId(result.getInt("type_id"));
+				acounttype.setType(result.getString("type"));
+			}
+			return acounttype;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		return null;
+		
+		
+	}
 	
-
-
+	
 	@Override
 	public List<AccountType> findAll() {
 		try (Connection conn = ConnectionUtil.getConnection()) {
@@ -48,5 +76,9 @@ public class AccountTypeDAOImpl implements AccountTypeDAO{
 			}
 		return null;
 	}
+
+	
+
+	
 
 }

@@ -9,5 +9,6 @@ import com.revature.model.AccountType;
 public interface AccountTypeDAO {
 	
 	public List<AccountType> findAll();
+	AccountType findById(int id);
 	
 }

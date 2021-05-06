@@ -76,16 +76,16 @@ CREATE TABLE roles (
   account_id SERIAL PRIMARY KEY,
   balance double precision NOT NULL,
   account_status_id INTEGER REFERENCES accountstatus(status_id),
-  account_type varchar(30) REFERENCES accounttype(type),
+  account_type INTEGER REFERENCES accounttype(type_id),
   user_id integer REFERENCES user_table(user_id)
   )
   
   INSERT INTO account (balance, account_status_id, account_type, user_id) 
-   VALUES (10.00, 1, 'checking', 1),
-          (100.00, 2, 'savings', 1),
-          (23.00, 2, 'checking', 2),
-          (00.00, 3, 'savings', 3),
-          (00.00, 4, 'checking', 4);
+   VALUES (10.00, 1, 1, 1),
+          (100.00, 2, 2, 1),
+          (23.00, 2, 1, 2),
+          (00.00, 3, 1, 3),
+          (00.00, 4, 2, 4);
   
  SELECT * FROM account;
   
