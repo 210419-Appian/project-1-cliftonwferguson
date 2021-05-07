@@ -140,8 +140,8 @@ public class Driver {
 		
 		System.out.println("======================");
 		
-		System.out.println("Add User default customer.");
-		System.out.println(" ");
+//		System.out.println("Add User default customer.");
+//		System.out.println(" ");
 		
 		//String sql = "INSERT INTO user_table (user_name, pass_word, first_name, last_name, email, user_role)"
 		//		+ "	VALUES (?, ?, ?, ?, ?, ?);";
