@@ -16,6 +16,7 @@ public class UserDAOImpl implements UserDAO {
 	private static RoleDAO rDAO = new RoleDAOImpl();
 	
 	/**
+	 *   user_table
 	 *    user_id SERIAL PRIMARY KEY,
    user_name varchar(30) NOT NULL UNIQUE,
    pass_word varchar(15) NOT null,
@@ -35,6 +36,37 @@ public class UserDAOImpl implements UserDAO {
 	    private Role role;
 	 * @throws  
 	  */
+	
+	@Override
+	public boolean addUser(User user) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+
+			//There is no chance for sql injection with just an integer so this is safe. 
+			String sql = "INSERT INTO user_table (user_name, pass_word, first_name, last_name, email, user_role)"
+					+ "	VALUES (?, ?, ?, ?, ?, ?);";
+
+			
+			PreparedStatement statement = conn.prepareStatement(sql);
+			
+			int index = 0;
+			statement.setString(++index, user.getUsername());
+			statement.setString(++index, user.getPassword());
+			statement.setString(++index, user.getFirstName());
+			statement.setString(++index, user.getLastName());
+			statement.setString(++index, user.getEmail());
+			if(user.getRole() != null) {
+				statement.setInt(++index, user.getRole().getRoleId());
+			} else {
+				statement.setInt(++index, 3);
+			}
+			
+			statement.execute();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 	
 	@Override
 	public User findById(int id) {
@@ -115,11 +147,7 @@ public class UserDAOImpl implements UserDAO {
 		return null;
 	}
 
-	@Override
-	public boolean addUser(User user) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
 
 	@Override
 	public List<User> findByAccount() {

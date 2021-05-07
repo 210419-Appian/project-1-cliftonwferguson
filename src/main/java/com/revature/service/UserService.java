@@ -17,5 +17,8 @@ public class UserService {
 		return uDAO.findById(id);
 	}
    
+   public boolean addUser(User user) {
+		return uDAO.addUser(user);
+	}
 
 }
