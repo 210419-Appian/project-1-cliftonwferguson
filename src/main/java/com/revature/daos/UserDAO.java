@@ -1,6 +1,6 @@
 package com.revature.daos;
 
-import java.io.IOException;
+
 import java.util.List;
 
 import com.revature.model.User;

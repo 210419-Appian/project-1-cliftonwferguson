@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.revature.model.AccountType;
 import com.revature.model.User;
 import com.revature.utils.ConnectionUtil;
 
@@ -34,7 +32,7 @@ public class UserDAOImpl implements UserDAO {
 	    private String lastName;
 	    private String email;
 	    private Role role;
-	 * @throws  
+	 *  
 	  */
 	
 	@Override
