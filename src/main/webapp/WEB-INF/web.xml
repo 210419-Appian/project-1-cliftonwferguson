@@ -9,4 +9,15 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  <servlet>
+    <display-name>Accounts</display-name>
+    <servlet-name>AccountServlet</servlet-name>
+    <servlet-class>com.revature.servlets.AccountServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+     <servlet-name>AccountServlet</servlet-name>
+     <url-pattern>/Accounts</url-pattern>
+  </servlet-mapping>
 </web-app>
