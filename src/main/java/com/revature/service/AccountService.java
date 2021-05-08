@@ -27,4 +27,8 @@ public class AccountService {
 		return acDao.findByUserId(id);
 	}
 	
+	public boolean addAccount(Account account) {
+		return acDao.addAccount(account);
+	}
+	
 }

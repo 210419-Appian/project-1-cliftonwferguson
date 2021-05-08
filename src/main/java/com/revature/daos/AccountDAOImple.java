@@ -1,6 +1,7 @@
 package com.revature.daos;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -38,6 +39,43 @@ public class AccountDAOImple implements AccountDAO{
       private AccountType type;
       private User user;
 	 */
+	
+	@Override
+	public boolean addAccount(Account account) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+
+			//There is no chance for sql injection with just an integer so this is safe. 
+			String sql = "INSERT INTO account (balance, account_status_id, account_type, user_id)"
+					+ "	VALUES (?, ?, ?, ?);";
+			
+			PreparedStatement statement = conn.prepareStatement(sql);
+
+			int index = 0;
+			statement.setDouble(++index, account.getBalance());
+			if(account.getStatusId() != null) {   //<-- If I don't specify the status of a new account, it should default to pending. 
+			   statement.setInt(++index, account.getStatusId().getStatusId());	
+			} else {
+				statement.setInt(++index, 1);
+			}
+			if(account.getType() != null) { // <-- If I don't specify the type of new account, it should default to checking.
+				statement.setInt(++index, account.getType().getTypeId());
+			} else {
+				statement.setInt(++index, 1);
+			}
+			if(account.getUser() != null) { //<--  If I don't specify the owner of the account, it should default to admin as a system check.
+				statement.setInt(++index, account.getUser().getUserId());
+			} else { 
+				statement.setInt(++index, 1);
+			}
+			
+			statement.execute();
+			return true;
+			
+		  } catch (SQLException e) {
+				e.printStackTrace();
+		  }
+		return false;
+	}
 	
 	@Override
 	public List<Account> findByUserId(int id) {
@@ -113,40 +151,7 @@ public class AccountDAOImple implements AccountDAO{
 	}
 	
 	
-	@Override
-	public Account findById(int id) {
-		try (Connection conn = ConnectionUtil.getConnection()) {
-
-			String sql = "SELECT * FROM account WHERE account_id = "+id+";";
-
-			Statement statement = conn.createStatement();
-
-			ResultSet result = statement.executeQuery(sql);
-
-			Account ac = null;
-
-			while (result.next()) {
-				 ac = new Account(
-						result.getInt("account_id"),
-						result.getDouble("balance"),
-						null, // account_status_id INTEGER REFERENCES accountstatus(status_id),
-						null, // account_type varchar(30) REFERENCES accounttype(type),
-						null // user_id integer REFERENCES user_table(user_id)
-						);
-				int accStatus = result.getInt("account_status_id");
-				  ac.setStatusId(accDao.findById(accStatus));
-				int at = result.getInt("account_type");
-				 ac.setType(atDoa.findById(at));
-				int ui = result.getInt("user_id");
-				 ac.setUser(uDao.findById(ui));
-			}
-
-			return ac;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+	
 
 	@Override
 	public List<Account> findAll() {
@@ -183,14 +188,42 @@ public class AccountDAOImple implements AccountDAO{
 		return null;
 	}	
 	
+	@Override
+	public Account findById(int id) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
 
+			String sql = "SELECT * FROM account WHERE account_id = "+id+";";
+
+			Statement statement = conn.createStatement();
+
+			ResultSet result = statement.executeQuery(sql);
+
+			Account ac = null;
+
+			while (result.next()) {
+				 ac = new Account(
+						result.getInt("account_id"),
+						result.getDouble("balance"),
+						null, // account_status_id INTEGER REFERENCES accountstatus(status_id),
+						null, // account_type varchar(30) REFERENCES accounttype(type),
+						null // user_id integer REFERENCES user_table(user_id)
+						);
+				int accStatus = result.getInt("account_status_id");
+				  ac.setStatusId(accDao.findById(accStatus));
+				int at = result.getInt("account_type");
+				 ac.setType(atDoa.findById(at));
+				int ui = result.getInt("user_id");
+				 ac.setUser(uDao.findById(ui));
+			}
+
+			return ac;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 
-	@Override
-	public boolean addAccount(Account account) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	public boolean updateAccount(Account account) {

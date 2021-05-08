@@ -60,6 +60,12 @@ public class AccountServlet extends HttpServlet {
 		 // Jackson will convert the json that is in the body to a java object we tell it to.
 		 Account ac = om.readValue(body, Account.class);  //<--- This is taking the "body" string created above and using the object mapper "om" to insert the 
 		                                                  // posted values into the account class.
+		 
+		 if (acService.addAccount(ac)) {
+			 resp.setStatus(201);
+		 }else {
+			 resp.setStatus(400);
+		 }
 	 } 
 	 
 	 
