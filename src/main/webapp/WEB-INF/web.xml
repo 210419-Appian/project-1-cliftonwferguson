@@ -9,8 +9,9 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
-  <servlet>
+ 
+ 
+ <servlet>
     <display-name>AccountServlet</display-name>
     <servlet-name>AccountServlet</servlet-name>
     <servlet-class>com.revature.servlets.AccountServlet</servlet-class>
@@ -20,6 +21,8 @@
     <servlet-name>AccountServlet</servlet-name>
     <url-pattern>/accounts</url-pattern>
   </servlet-mapping>
+  
+  
   
   <servlet>
     <servlet-name>LoginServlet</servlet-name>
@@ -36,6 +39,6 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>SucessServlet</servlet-name>
-    <url-pattern>/login</url-pattern>
+    <url-pattern>/success</url-pattern>
   </servlet-mapping>
 </web-app>
