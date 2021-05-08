@@ -20,6 +20,8 @@ public class LoginServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		UserDTO u = new UserDTO();
 		  User userparam = new User();
+		  
+		  
 		
 		u.username = req.getParameter("userId");  // the get parameter is coming from the html.
 		u.password = req.getParameter("password");
