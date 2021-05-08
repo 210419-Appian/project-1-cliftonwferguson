@@ -12,12 +12,30 @@
   
   <servlet>
     <display-name>AccountServlet</display-name>
-    <servlet-name>AvengerServlet</servlet-name>
+    <servlet-name>AccountServlet</servlet-name>
     <servlet-class>com.revature.servlets.AccountServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
-    <servlet-name>AvengerServlet</servlet-name>
+    <servlet-name>AccountServlet</servlet-name>
     <url-pattern>/accounts</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>com.revature.controllers.LoginServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>SucessServlet</servlet-name>
+    <servlet-class>com.revature.controllers.SuccessServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SucessServlet</servlet-name>
+    <url-pattern>/login</url-pattern>
   </servlet-mapping>
 </web-app>
