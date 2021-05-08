@@ -10,17 +10,22 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
  
+ <context-param>
+  	<param-name>ParamContext</param-name>
+  	<param-value>notimportant</param-value>
+  </context-param>
+ 
  <servlet>
   	<servlet-name>FrontControllerServlet</servlet-name>
   	<servlet-class>com.revature.web.FrontControllerServlet</servlet-class>
+  	<init-param>
+  		<param-name>BaseURL</param-name>
+  		<param-value>/rocp-project/</param-value>
+  	</init-param>
   </servlet>
   
   <servlet-mapping>
   	<servlet-name>FrontControllerServlet</servlet-name>
-  	<init-param>
-  		<param-name>BaseURL</param-name>
-  		<param-value>/HelloFrontController/</param-value>
-  	</init-param>
   	<url-pattern>/</url-pattern>
   </servlet-mapping>
 </web-app>
