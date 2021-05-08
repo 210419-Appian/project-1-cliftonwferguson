@@ -11,13 +11,13 @@
   </welcome-file-list>
   
   <servlet>
-    <display-name>Accounts</display-name>
-    <servlet-name>AccountServlet</servlet-name>
+    <display-name>AccountServlet</display-name>
+    <servlet-name>AvengerServlet</servlet-name>
     <servlet-class>com.revature.servlets.AccountServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
-     <servlet-name>AccountServlet</servlet-name>
-     <url-pattern>/Accounts</url-pattern>
+    <servlet-name>AvengerServlet</servlet-name>
+    <url-pattern>/accounts</url-pattern>
   </servlet-mapping>
 </web-app>
