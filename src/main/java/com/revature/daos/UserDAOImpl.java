@@ -36,6 +36,50 @@ public class UserDAOImpl implements UserDAO {
 	  */
 	
 	@Override
+	public User findByName(String user) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+
+			//There is no chance for sql injection with just an integer so this is safe. 
+			String sql = "select * from user_table where user_name = ?;";
+			
+			PreparedStatement statement = conn.prepareStatement(sql);
+			
+			statement.setString(1, user);
+
+			ResultSet result = statement.executeQuery();
+
+			User username = new User();
+
+			while (result.next()) {
+				username.setUsername(result.getString("user_name"));
+				username.setPassword(result.getString("pass_word"));
+				username.setFirstName(result.getString("first_name"));
+				username.setLastName(result.getString("last_name"));
+				username.setEmail(result.getString("email"));
+				int userrole = result.getInt("user_role");
+				   if(userrole != 0) {
+					   username.setRole(rDAO.findById(userrole));
+				   
+				} else {
+					System.out.println("hello");
+				}
+				
+		int uUser = result.getInt("user_role");
+		
+		username.setRole(rDAO.findById(uUser));
+			}
+
+			return username;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+
+	
+	@Override
 	public boolean addUser(User user) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
 
@@ -139,13 +183,7 @@ public class UserDAOImpl implements UserDAO {
 		return null;
 	}
 
-	@Override
-	public User findByName(String user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
+	
 
 	@Override
 	public List<User> findByAccount() {

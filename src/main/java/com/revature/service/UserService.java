@@ -20,5 +20,9 @@ public class UserService {
    public boolean addUser(User user) {
 		return uDAO.addUser(user);
 	}
+   
+   public User findByName(String user) { 
+	   return uDAO.findByName(user);
+   }
 
 }
