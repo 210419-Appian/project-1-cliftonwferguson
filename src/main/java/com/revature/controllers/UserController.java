@@ -4,13 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.daos.UserDAO;
 import com.revature.daos.UserDAOImpl;
 import com.revature.model.Message;
 import com.revature.model.UserDTO;
@@ -19,6 +17,27 @@ import com.revature.service.UserService;
 public class UserController {
 	private static ObjectMapper om = new ObjectMapper();
 
+	public static void logout (HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		Message m = new Message();
+		if(req.getSession(false)==null) {
+			return;
+		}
+		HttpSession ses = req.getSession();
+		
+		if (ses != null) {
+			ses.invalidate();
+			
+			m.setMessage("You have successfully logged out" + ses.getAttribute("username"));
+			PrintWriter out = resp.getWriter();
+			out.print(om.writeValueAsString(m));
+			resp.setStatus(200);
+			return;
+		}
+		m.setMessage("There was no user logged into the session");
+		PrintWriter out = resp.getWriter();
+		out.print(om.writeValueAsString(m));
+		resp.setStatus(400);
+	}
 	
 	public static void login (HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		UserDAOImpl udao = new UserDAOImpl();
@@ -55,6 +74,7 @@ public class UserController {
 				resp.setStatus(400);
 			}
 			
+		   
 			
 		
 			//resp.setStatus(200); //Tomcat will do this by default if it finds a servlet method to handle the request. 

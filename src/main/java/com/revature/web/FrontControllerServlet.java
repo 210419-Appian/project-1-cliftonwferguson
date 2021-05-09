@@ -55,6 +55,10 @@ public class FrontControllerServlet extends HttpServlet {
 			if (req.getMethod().equals("post")) {
 				uController.login(req, resp);
 			}
+		case "logout":		
+			if (req.getMethod().equals("post")) {
+				uController.logout(req, resp);
+			}
 		}
 	}
 }
