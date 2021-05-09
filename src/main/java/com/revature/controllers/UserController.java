@@ -24,6 +24,16 @@ public class UserController {
 	private static ObjectMapper om = new ObjectMapper();
 	String s = new String();
 	static AccountService accService = new AccountService();
+	static UserService uService = new UserService();
+	
+	public void getAllUsers(HttpServletResponse resp) throws IOException {
+		List<User> list = uService.showUsers();
+		String json = om.writeValueAsString(list);
+		System.out.println(json);
+		PrintWriter pw = resp.getWriter();
+		pw.print(json);
+		resp.setStatus(200);
+	}
 	
 	public void getAccount(HttpServletResponse resp, int id) throws IOException {
 
