@@ -35,6 +35,19 @@ public class UserController {
 		resp.setStatus(200);
 	}
 	
+	public void getUserbyid(HttpServletResponse resp, int id) throws IOException {
+
+		User u = uService.getoneUser(id);
+
+		// Convert Java object into a JSON string that can be written to the body of an
+		// HTTP response
+		String json = om.writeValueAsString(u);
+		System.out.println(json);
+		PrintWriter pw = resp.getWriter();
+		pw.print(json);
+		resp.setStatus(200);
+	}
+	
 	public void getAccount(HttpServletResponse resp, int id) throws IOException {
 
 		Account account = accService.getoneAccount(id);
@@ -48,7 +61,7 @@ public class UserController {
 		resp.setStatus(200);
 	}
 	
-	public static void getAllAccounts (HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	public void getAllAccounts(HttpServletResponse resp) throws IOException {
 //		if(req.getSession(false)==null) {
 //	    	   return;
 //	       }
