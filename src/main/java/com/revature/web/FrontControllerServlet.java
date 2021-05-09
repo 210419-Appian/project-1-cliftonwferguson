@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.revature.controllers.AccountController;
+import com.revature.controllers.UserController;
 import com.revature.model.User;
 import com.revature.model.UserDTO;
 
@@ -19,6 +20,7 @@ public class FrontControllerServlet extends HttpServlet {
 
 	private String BaseURL = null;
 	private AccountController accController = new AccountController();
+	private UserController uController = new UserController();
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -48,7 +50,11 @@ public class FrontControllerServlet extends HttpServlet {
 		switch (URL) {
 		case "accounts":
 			accController.getAllAccounts(resp);
+		 break;
+		case "login":
+			if (req.getMethod().equals("post")) {
+				uController.login(req, resp);
+			}
 		}
-
 	}
 }

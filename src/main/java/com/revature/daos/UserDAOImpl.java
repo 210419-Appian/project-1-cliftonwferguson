@@ -36,6 +36,39 @@ public class UserDAOImpl implements UserDAO {
 	  */
 	
 	@Override
+	public boolean addUser(User user) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+
+			//There is no chance for sql injection with just an integer so this is safe. 
+			String sql = "INSERT INTO user_table (user_name, pass_word, first_name, last_name, email, user_role)"
+					+ "	VALUES (?, ?, ?, ?, ?, ?);";
+
+			
+			PreparedStatement statement = conn.prepareStatement(sql);
+			
+			int index = 0;
+			statement.setString(++index, user.getUsername());
+			statement.setString(++index, user.getPassword());
+			statement.setString(++index, user.getFirstName());
+			statement.setString(++index, user.getLastName());
+			statement.setString(++index, user.getEmail());
+			if(user.getRole() != null) { //<--  If I don't specify the owner of the account, it should default to admin as a system check.
+				statement.setInt(++index, user.getRole().getRoleId());
+			} else { 
+				statement.setInt(++index, 1);
+			}
+			
+			
+			statement.execute();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	
+	@Override
 	public User findByName(String user) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
 
@@ -79,37 +112,7 @@ public class UserDAOImpl implements UserDAO {
 
 
 	
-	@Override
-	public boolean addUser(User user) {
-		try (Connection conn = ConnectionUtil.getConnection()) {
 
-			//There is no chance for sql injection with just an integer so this is safe. 
-			String sql = "INSERT INTO user_table (user_name, pass_word, first_name, last_name, email, user_role)"
-					+ "	VALUES (?, ?, ?, ?, ?, ?);";
-
-			
-			PreparedStatement statement = conn.prepareStatement(sql);
-			
-			int index = 0;
-			statement.setString(++index, user.getUsername());
-			statement.setString(++index, user.getPassword());
-			statement.setString(++index, user.getFirstName());
-			statement.setString(++index, user.getLastName());
-			statement.setString(++index, user.getEmail());
-			if(user.getRole() != null) {
-				statement.setInt(++index, user.getRole().getRoleId());
-			} else {
-				statement.setInt(++index, 3);
-			}
-			
-			statement.execute();
-			return true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-	
 	@Override
 	public User findById(int id) {
 		try (Connection conn = ConnectionUtil.getConnection()) {

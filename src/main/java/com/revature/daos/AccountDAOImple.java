@@ -41,6 +41,43 @@ public class AccountDAOImple implements AccountDAO{
 	 */
 	
 	@Override
+	public boolean updateAccount(Account account) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+
+			// There is no chance for sql injection with just an integer so this is safe.
+			String sql = "UPDATE accounts " + "SET balance = ?, " + "account_status_id = ?, " + "account_type = ?, " + "user_id = ?, " + "WHERE account_id = ?;";
+					
+
+			PreparedStatement statement = conn.prepareStatement(sql);
+			
+			int index = 0;
+			statement.setDouble(++index, account.getBalance());
+			if(account.getStatusId() != null) {   //<-- If I don't specify the status of a new account, it should default to pending. 
+				   statement.setInt(++index, account.getStatusId().getStatusId());	
+				} else {
+					statement.setInt(++index, 1);
+				}
+				if(account.getType() != null) { // <-- If I don't specify the type of new account, it should default to checking.
+					statement.setInt(++index, account.getType().getTypeId());
+				} else {
+					statement.setInt(++index, 1);
+				}
+				if(account.getUser() != null) { //<--  If I don't specify the owner of the account, it should default to admin as a system check.
+					statement.setInt(++index, account.getUser().getUserId());
+				} else { 
+					statement.setInt(++index, 1);
+				}
+				
+				statement.execute();
+				return true;
+				
+			  } catch (SQLException e) {
+					e.printStackTrace();
+			  }
+			return false;
+	}
+	
+	@Override
 	public boolean addAccount(Account account) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
 
@@ -223,13 +260,6 @@ public class AccountDAOImple implements AccountDAO{
 		return null;
 	}
 	
-
-
-	@Override
-	public boolean updateAccount(Account account) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 
 }

@@ -13,5 +13,4 @@ public interface UserDAO {
 	public List<User> findByAccount();
 	public User findById(int id);
 	
-	
 }
