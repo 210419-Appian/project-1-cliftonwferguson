@@ -8,7 +8,7 @@ import com.revature.model.Account;
 
 public class AccountService {
 	
-	private AccountDAO acDao = new AccountDAOImple();
+	private AccountDAOImple acDao = new AccountDAOImple();
 	
 	public List<Account> getAllAccounts() {
 		List<Account> list = acDao.findAll();

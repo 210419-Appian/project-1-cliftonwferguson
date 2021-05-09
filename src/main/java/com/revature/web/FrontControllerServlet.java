@@ -29,7 +29,7 @@ public class FrontControllerServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-	
+	   doGet(req, resp);
 		
 	}
 	
@@ -47,17 +47,21 @@ public class FrontControllerServlet extends HttpServlet {
 
 		System.out.println(sections);
 
-		switch (URL) {
+		switch (sections[0]) {
 		case "accounts":
 			accController.getAllAccounts(resp);
-		 break;
 		case "login":
-			if (req.getMethod().equals("post")) {
+			if (req.getMethod().equals("POST")) {
 				uController.login(req, resp);
 			}
 		case "logout":		
-			if (req.getMethod().equals("post")) {
+			if (req.getMethod().equals("POST")) {
 				uController.logout(req, resp);
+			}
+		case "listaccounts":
+			if (req.getMethod().equals("GET")) {
+				//accController.getAllAccounts(resp);
+				uController.listAccounts(req, resp);
 			}
 		}
 	}
