@@ -48,21 +48,25 @@ public class FrontControllerServlet extends HttpServlet {
 		System.out.println(sections);
 
 		switch (sections[0]) {
-		case "accounts":
-			accController.getAllAccounts(resp);
-		case "login":
+		case "login":            //working, adding a cookie
 			if (req.getMethod().equals("POST")) {
 				uController.login(req, resp);
 			}
-		case "logout":		
+		case "logout":		   //not working
 			if (req.getMethod().equals("POST")) {
 				uController.logout(req, resp);
 			}
-		case "listaccounts":
+		case "getallaccounts":  //not working
 			if (req.getMethod().equals("GET")) {
+				uController.getAllAccounts(req, resp);
 				//accController.getAllAccounts(resp);
-				uController.listAccounts(req, resp);
 			}
+		case "getaccount":   // working
+			if (req.getMethod().equals("GET")) {
+				int id = Integer.parseInt(sections[1]);
+				uController.getAccount(resp, id);
+			}
+		
 		}
 	}
 }

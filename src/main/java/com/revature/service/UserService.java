@@ -32,7 +32,7 @@ public class UserService {
    public boolean loginVerification(UserDTO u) {
 	   UserDAOImpl udao = new UserDAOImpl();
 	   UserDTO userdto = new UserDTO();
-	   UserService userser = new UserService();
+	   
 		
 		if (udao.findByName(userdto.getUsername()).getPassword() == userdto.getPassword()) {
 			

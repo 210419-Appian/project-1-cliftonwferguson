@@ -25,7 +25,20 @@ public class UserController {
 	String s = new String();
 	static AccountService accService = new AccountService();
 	
-	public static void listAccounts (HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	public void getAccount(HttpServletResponse resp, int id) throws IOException {
+
+		Account account = accService.getoneAccount(id);
+
+		// Convert Java object into a JSON string that can be written to the body of an
+		// HTTP response
+		String json = om.writeValueAsString(account);
+		System.out.println(json);
+		PrintWriter pw = resp.getWriter();
+		pw.print(json);
+		resp.setStatus(200);
+	}
+	
+	public static void getAllAccounts (HttpServletRequest req, HttpServletResponse resp) throws IOException {
 //		if(req.getSession(false)==null) {
 //	    	   return;
 //	       }
