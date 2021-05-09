@@ -26,6 +26,31 @@ public class UserController {
 	static AccountService accService = new AccountService();
 	static UserService uService = new UserService();
 	
+	public void register (HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		BufferedReader reader = req.getReader();
+
+		StringBuilder sb = new StringBuilder();
+
+		String line = reader.readLine();
+
+		while (line != null) {
+			sb.append(line);
+			line = reader.readLine();
+		}
+
+		String body = new String(sb);
+
+		User user = om.readValue(body, User.class);
+
+		if (uService.addUser(user)) {
+			resp.setStatus(201);
+		} else {
+			resp.setStatus(406);
+		}
+  
+//			
+	}
+	
 	public void getAllUsers(HttpServletResponse resp) throws IOException {
 		List<User> list = uService.showUsers();
 		String json = om.writeValueAsString(list);
@@ -61,7 +86,7 @@ public class UserController {
 		resp.setStatus(200);
 	}
 	
-	public void getAllAccounts(HttpServletResponse resp) throws IOException {
+	public void getAllAccounts(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 //		if(req.getSession(false)==null) {
 //	    	   return;
 //	       }
@@ -72,14 +97,15 @@ public class UserController {
 	       User u = uDao.findByName(s);
 	       System.out.println("this is line 36 " + u.toString());
 	       if (u.getRole().getRoleId() == 1) {
-	    	   
-	        List<Account> list = accService.getAllAccounts(); 
-	   		
-	   		String json = om.writeValueAsString(list);
-	   		System.out.println(json);
-	   		pw = resp.getWriter();
-	   		pw.print(json);
-	   		resp.setStatus(200);
+	    
+	    			List<Account> list = accService.getAllAccounts(); 
+	    			
+	    			String json = om.writeValueAsString(list);
+	    			System.out.println(json);
+	    			PrintWriter pw = resp.getWriter();
+	    			pw.print(json);
+	    			resp.setStatus(200);
+	    		
 	   		} else {
 	   			Message m = new Message();
 	   			  m.setMessage("Invalid User");
@@ -153,31 +179,8 @@ public class UserController {
 			
 			}
 		
-	public static void register (HttpServletRequest req, HttpServletResponse resp) throws IOException {
-//	       if(req.getSession(false)==null) {
-//	    	   return;
-//	       }
-//	       HttpSession ses = req.getSession();
-//	       String s = (String) ses.getAttribute("username");
-//	       UserDAOImpl uDao = new UserDAOImpl();
-//	       User u = uDao.findByName(s);
-//	       RoleDAOImpl rDao = new RoleDAOImpl();
-//	       
-//	       if (u.getRole().getRoleId() == 1) {
-//	    	    BufferedReader reader = req.getReader();
-//	    	    StringBuilder sb = new StringBuilder();
-//	    	    String line = reader.readLine();
-//	    	      while(line != null) {
-//	    	    	  sb.append(line);
-//	    	    	  line = reader.readLine();
-//	    	      }
-//	    	      String body = new String(sb);
-//	    	      User newUser = om.readValue(Body, User.class);
-//	       }
-//	    	   }
-//			//resp.setStatus(200); //Tomcat will do this by default if it finds a servlet method to handle the request. 
-//			
-	}	
+	
 	}
+	
 
 
