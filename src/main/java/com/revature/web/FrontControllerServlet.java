@@ -58,10 +58,10 @@ public class FrontControllerServlet extends HttpServlet {
 			}
 		case "getallaccounts":  //not working
 			if (req.getMethod().equals("GET")) {
-				uController.getAllAccounts(req, resp);
+				accController.getAllAccounts(resp);
 				//accController.getAllAccounts(resp);
 			}
-		case "getaccount":   // working
+		case "getaccountbyid":   // working
 			if (req.getMethod().equals("GET")) {
 				int id = Integer.parseInt(sections[1]);
 				uController.getAccount(resp, id);
@@ -78,6 +78,10 @@ public class FrontControllerServlet extends HttpServlet {
 		case "newuser":
 			if (req.getMethod().equals("POST")) {
 				uController.register(req, resp);
+			}
+		case "newaccount":
+			if (req.getMethod().equals("POST")) {
+				accController.addAccount(req, resp);
 			}
 		}
 	}

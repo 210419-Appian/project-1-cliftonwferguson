@@ -86,38 +86,38 @@ public class UserController {
 		resp.setStatus(200);
 	}
 	
-	public void getAllAccounts(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-//		if(req.getSession(false)==null) {
-//	    	   return;
+//	public void getAllAccounts(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+////		if(req.getSession(false)==null) {
+////	    	   return;
+////	       }
+//	       HttpSession ses = req.getSession();
+//	       String s = (String) ses.getAttribute("username");
+//	       System.out.println(s);
+//	       UserDAOImpl uDao = new UserDAOImpl();
+//	       User u = uDao.findByName(s);
+//	       System.out.println("this is line 36 " + u.toString());
+//	       if (u.getRole().getRoleId() == 1) {
+//	    
+//	    			List<Account> list = accService.getAllAccounts(); 
+//	    			
+//	    			String json = om.writeValueAsString(list);
+//	    			System.out.println(json);
+//	    			PrintWriter pw = resp.getWriter();
+//	    			pw.print(json);
+//	    			resp.setStatus(200);
+//	    		
+//	   		} else {
+//	   			Message m = new Message();
+//	   			  m.setMessage("Invalid User");
+//	   			  pw.print(om.writeValueAsString(m));
+//	   			  resp.setStatus(400);
+//	   		}
+//	        
 //	       }
-	       HttpSession ses = req.getSession();
-	       String s = (String) ses.getAttribute("username");
-	       System.out.println(s);
-	       UserDAOImpl uDao = new UserDAOImpl();
-	       User u = uDao.findByName(s);
-	       System.out.println("this is line 36 " + u.toString());
-	       if (u.getRole().getRoleId() == 1) {
-	    
-	    			List<Account> list = accService.getAllAccounts(); 
-	    			
-	    			String json = om.writeValueAsString(list);
-	    			System.out.println(json);
-	    			PrintWriter pw = resp.getWriter();
-	    			pw.print(json);
-	    			resp.setStatus(200);
-	    		
-	   		} else {
-	   			Message m = new Message();
-	   			  m.setMessage("Invalid User");
-	   			  pw.print(om.writeValueAsString(m));
-	   			  resp.setStatus(400);
-	   		}
-	        
-	       }
-	       
+//	       
 	
 
-	public static void logout (HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	public void logout (HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		Message m = new Message();
 		if(req.getSession(false)==null) {
 			return;
@@ -139,7 +139,7 @@ public class UserController {
 		resp.setStatus(400);
 	}
 	
-	public static void login (HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	public void login (HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		UserDAOImpl udao = new UserDAOImpl();
 		UserDTO userdto = new UserDTO();
 		UserService userser = new UserService();
