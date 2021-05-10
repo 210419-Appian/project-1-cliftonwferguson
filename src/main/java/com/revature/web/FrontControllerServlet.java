@@ -65,12 +65,12 @@ public class FrontControllerServlet extends HttpServlet {
 			if (req.getMethod().equals("GET")) {
 				uController.getAllUsers(resp);
 			} break;
-		case "getuserbyid":
+		case "usersbyid":
 			if (req.getMethod().equals("GET")) {
 			int id = Integer.parseInt(sections[1]);
 			    uController.getUserbyid(resp, id);
 			} break;
-		case "newuser":
+		case "register":
 			if (req.getMethod().equals("POST")) {
 				uController.register(req, resp);
 			} break;
