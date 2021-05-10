@@ -30,11 +30,11 @@ public class UserService {
    }
    
    public boolean loginVerification(UserDTO u) {
-	   UserDAOImpl udao = new UserDAOImpl();
-	   UserDTO userdto = new UserDTO();
+	   
+	   User user = uDAO.findByName(u.username);
 	   
 		
-		if (udao.findByName(userdto.getUsername()).getPassword() == userdto.getPassword()) {
+		if ((user.getPassword() != null) && (u.password.equals(user.getPassword()))) {
 			
 		return true;
 			

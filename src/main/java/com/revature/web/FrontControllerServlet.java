@@ -51,43 +51,43 @@ public class FrontControllerServlet extends HttpServlet {
 		case "login":            //working, adding a cookie
 			if (req.getMethod().equals("POST")) {
 				uController.login(req, resp);
-			}
+			} break;
 		case "logout":		   //not working
 			if (req.getMethod().equals("POST")) {
 				uController.logout(req, resp);
-			}
+			} break;
 		
 		case "getaccountbyid":   // working
 			if (req.getMethod().equals("GET")) {
 				int id = Integer.parseInt(sections[1]);
 				uController.getAccount(resp, id);
-			}
+			} break;
 		case "users":
 			if (req.getMethod().equals("GET")) {
 				uController.getAllUsers(resp);
-			}
+			} break;
 		case "getuserbyid":
 			if (req.getMethod().equals("GET")) {
 			int id = Integer.parseInt(sections[1]);
 			    uController.getUserbyid(resp, id);
-			}
+			} break;
 		case "newuser":
 			if (req.getMethod().equals("POST")) {
 				uController.register(req, resp);
-			}
+			} break;
 		case "getallaccounts":  //not working
 			if (req.getMethod().equals("GET")) {
 				accController.getAllAccounts(resp);
 				//accController.getAllAccounts(resp);
-			}
+			} break;
 		case "newaccount":
 			if (req.getMethod().equals("POST")) {
 				accController.addAccount(req, resp);
-			}
+			} break;
 		case "withdraw" :
 			if (req.getMethod().equals("PUT")) {
 				accController.withdraw(req, resp);
-			}
+			}break;
 		}
 	}
 }
