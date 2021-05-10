@@ -91,6 +91,10 @@ public class FrontControllerServlet extends HttpServlet {
 			 if (req.getMethod().equals("POST")) {
 				 accController.deposit(req, resp);
 			 } break;
+		case "transfer":
+			if (req.getMethod().equals("POST")) {
+				accController.transfer(req, resp);
+			} break;
 		}
 	}
 }

@@ -2,40 +2,47 @@ package com.revature.model;
 
 public class TransferDTO {
 	
-     private int accountIdA;
-     private double balanceA;
-     private int accountIdB;
-     private double balanceB;
-     
-	public int getAccountIdA() {
-		return accountIdA;
-	}
-	public void setAccountIdA(int accountIdA) {
-		this.accountIdA = accountIdA;
-	}
-	public double getBalanceA() {
-		return balanceA;
-	}
-	public void setBalanceA(double balanceA) {
-		this.balanceA = balanceA;
-	}
-	public int getAccountIdB() {
-		return accountIdB;
-	}
-	public void setAccountIdB(int accountIdB) {
-		this.accountIdB = accountIdB;
-	}
-	public double getBalanceB() {
-		return balanceB;
-	}
-	public void setBalanceB(double balanceB) {
-		this.balanceB = balanceB;
-	}
-	public TransferDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-     
+   public int sourceAccountId;
+   public int targetAccountId;
+   public double amount;
+public int getsourceAccountId() {
+	return sourceAccountId;
+}
+public void setsourceAccountId(int sourceAccountId) {
+	this.sourceAccountId = sourceAccountId;
+}
+public int gettargetAccountId() {
+	return targetAccountId;
+}
+public void settargetAccountId(int targetAccountId) {
+	this.targetAccountId = targetAccountId;
+}
+public double getAmount() {
+	return amount;
+}
+public void setAmount(double amount) {
+	this.amount = amount;
+}
+@Override
+public String toString() {
+	return "TransferDTO [sourceAccountId=" + sourceAccountId + ", targetAccountId=" + targetAccountId + ", amount="
+			+ amount + "]";
+}
+public TransferDTO(int sourceAccountId, int targetAccountId, double amount) {
+	super();
+	this.sourceAccountId = sourceAccountId;
+	this.targetAccountId = targetAccountId;
+	this.amount = amount;
+}
+public TransferDTO() {
+	super();
+	// TODO Auto-generated constructor stub
+}
+
+
+   
+   
+   
 	
      
 }

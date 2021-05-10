@@ -16,6 +16,7 @@ import com.revature.daos.UserDAOImpl;
 import com.revature.model.Account;
 import com.revature.model.BalanceDTO;
 import com.revature.model.Message;
+import com.revature.model.TransferDTO;
 import com.revature.model.User;
 import com.revature.service.AccountService;
 
@@ -27,6 +28,63 @@ public class AccountController {
 	private static UserDAOImpl uDao = new UserDAOImpl();
 	private static String s = new String();
 	private static AccountDAOImple aDao = new AccountDAOImple();
+	private static TransferDTO tDto = new TransferDTO();
+	
+	
+	public void transfer (HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		if (req.getSession(false) == null) {
+			return;
+		}
+		HttpSession ses = req.getSession();
+		
+		s = (String) ses.getAttribute("username");
+		
+		BufferedReader reader = req.getReader();
+		StringBuilder sb = new StringBuilder();
+		String line = reader.readLine();
+		while (line != null) {
+			sb.append(line);
+			line = reader.readLine();
+		}
+		String body = new String(sb);
+		tDto = om.readValue(body, TransferDTO.class);
+		out = resp.getWriter();
+		
+		User user = uDao.findByName(s);
+		Account accounta = aDao.findById(tDto.sourceAccountId);
+		Account accountb = aDao.findById(tDto.targetAccountId);
+		if (accounta == null || accountb == null) {
+			Message m = new Message();
+			m.setMessage("Invalid Account");
+			out.print(om.writeValueAsString(m));
+			resp.setStatus(400);
+		}
+		
+		if ((user.getRole().getRoleId() == 1) || user.getUserId() == accounta.getUser().getUserId()) {
+			
+			if (accounta == null || accountb == null) {
+				Message m = new Message();
+				m.setMessage("Invalid Account");
+				out.print(om.writeValueAsString(m));
+				resp.setStatus(400);
+			}
+			 System.out.println(tDto.toString());
+			if ((user.getRole().getRoleId() == 1) || user.getUserId() == accounta.getUser().getUserId()) {
+				if (accService.transfer(tDto, s)) {
+					Message m = new Message();
+					m.setMessage("Transfer Success!");
+					out.print(om.writeValueAsString(m));
+					resp.setStatus(200);
+				}
+			} else {
+				Message m = new Message();
+				m.setMessage("The Requested Action is not permitted");
+				PrintWriter out = resp.getWriter();
+				out.print(om.writeValueAsString(m));
+				resp.setStatus(401);
+			}
+		}
+	}
 	
 	public void deposit(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		if (req.getSession(false) == null) {
@@ -70,7 +128,7 @@ public class AccountController {
 
 			if (accService.deposit(bDto, s)) {
 				Message m = new Message();
-				m.setMessage(bDto.amount + " has been withdrawn from your accout.");
+				m.setMessage(bDto.amount + " has been deposited into your accout.");
 				out.print(om.writeValueAsString(m));
 				resp.setStatus(201);
 			} else {
