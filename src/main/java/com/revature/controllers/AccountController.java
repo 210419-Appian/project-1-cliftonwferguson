@@ -68,7 +68,7 @@ public class AccountController {
 		s = (String) ses.getAttribute("username");
 		UserDAOImpl uDao = new UserDAOImpl();
 		User user = uDao.findByName(s);
-		RoleDAOImpl rDao = new RoleDAOImpl();
+		
 
 		if ((user.getRole().getRoleId() == 1) || (user.getRole().getRoleId() == 2)) {
 			pw.print(json);

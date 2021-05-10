@@ -77,7 +77,7 @@ public class FrontControllerServlet extends HttpServlet {
 			} break;
 		case "getallaccounts":  //not working
 			if (req.getMethod().equals("GET")) {
-				accController.getAllAccounts(resp);
+				accController.getAllAccounts(req, resp);
 				//accController.getAllAccounts(resp);
 			} break;
 		case "newaccount":
