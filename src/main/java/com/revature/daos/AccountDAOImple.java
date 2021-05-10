@@ -45,7 +45,7 @@ public class AccountDAOImple implements AccountDAO{
 		try (Connection conn = ConnectionUtil.getConnection()) {
 
 			// There is no chance for sql injection with just an integer so this is safe.
-			String sql = "UPDATE accounts " + "SET balance = ?, " + "account_status_id = ?, " + "account_type = ?, " + "user_id = ?, " + "WHERE account_id = ?;";
+			String sql = "UPDATE account " + "SET balance = ?, " + "account_status_id = ?, " + "account_type = ?, " + "user_id = ? " + "WHERE account_id = ?;";
 					
 
 			PreparedStatement statement = conn.prepareStatement(sql);
@@ -55,19 +55,19 @@ public class AccountDAOImple implements AccountDAO{
 			if(account.getStatusId() != null) {   //<-- If I don't specify the status of a new account, it should default to pending. 
 				   statement.setInt(++index, account.getStatusId().getStatusId());	
 				} else {
-					statement.setInt(++index, 1);
+					
 				}
 				if(account.getType() != null) { // <-- If I don't specify the type of new account, it should default to checking.
 					statement.setInt(++index, account.getType().getTypeId());
 				} else {
-					statement.setInt(++index, 1);
+					
 				}
 				if(account.getUser() != null) { //<--  If I don't specify the owner of the account, it should default to admin as a system check.
 					statement.setInt(++index, account.getUser().getUserId());
 				} else { 
-					statement.setInt(++index, 1);
+					
 				}
-				
+				    statement.setInt(++index, account.getAccountId());
 				statement.execute();
 				return true;
 				

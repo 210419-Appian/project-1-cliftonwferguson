@@ -19,12 +19,14 @@ public class AccountService {
 	public boolean withdraw(BalanceDTO bDto, String s) {
 		
 		Account account = acDao.findById(bDto.accountId);
+		
 		if (account == null) {
 			return false;
 		}
-		
-		if (bDto.balance < account.getBalance()) {
-			account.setBalance(account.getBalance() - bDto.balance);
+		System.out.println(account);
+		if (bDto.amount < account.getBalance()) {
+			account.setBalance(account.getBalance() - bDto.amount);
+			System.out.println(account.getBalance());
 			acDao.updateAccount(account);
 			return true;
 		} else {
@@ -53,38 +55,7 @@ public class AccountService {
 		return acDao.addAccount(account);
 	}
 	
-//	public class Account {
-//	     private int accountId;
-//	     private double balance;
-//	     private AccountStatus statusId;
-//	     private AccountType type;
-//	     private User user;
-	
-//	public boolean updatePartialAccount(Account account) {
-//		if (account.getAccountId() == 0) {
-//			return false;
-//		}
-//
-//		Account accountpatch = getoneAccount(account.getAccountId());
-//
-//		
-//		if (account.getBalance() == 0.0) {
-//			account.setBalance(accountpatch.getBalance());
-//		}
-//		if (account.getStatusId() == null) {
-//			account.setStatusId(accountpatch.getStatusId());
-//		}
-//		if (account.getType() == null) {
-//			account.setType(accountpatch.getType());
-//		}
-//		if (account.getUser() == null) {
-//			account.setUser(accountpatch.getUser());
-//		}
-//		
-//
-//		return acDao.updateAccount(accountpatch);
-//
-//	}
+
 
 	
 }

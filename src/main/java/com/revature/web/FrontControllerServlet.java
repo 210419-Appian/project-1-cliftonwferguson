@@ -85,7 +85,7 @@ public class FrontControllerServlet extends HttpServlet {
 				accController.addAccount(req, resp);
 			} break;
 		case "withdraw" :
-			if (req.getMethod().equals("PUT")) {
+			if (req.getMethod().equals("POST")) {
 				accController.withdraw(req, resp);
 			}break;
 		}

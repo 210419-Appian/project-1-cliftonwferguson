@@ -27,6 +27,19 @@ public class UserController {
 	static UserService uService = new UserService();
 	
 	public void register (HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		
+		if(req.getSession(false)==null) {
+			return;
+		}
+		HttpSession ses = req.getSession();
+		
+		String s = (String) ses.getAttribute("username");
+		UserDAOImpl uDao = new UserDAOImpl();
+		User user = uDao.findByName(s);
+		RoleDAOImpl rDaoImpl = new RoleDAOImpl();
+		
+		if (user.getRole().getRoleId() == 1) {
+		
 		BufferedReader reader = req.getReader();
 
 		StringBuilder sb = new StringBuilder();
@@ -40,14 +53,18 @@ public class UserController {
 
 		String body = new String(sb);
 
-		User user = om.readValue(body, User.class);
+		//User user = om.readValue(body, User.class);
+		
+		PrintWriter out = resp.getWriter();
+		
+		
 
 		if (uService.addUser(user)) {
 			resp.setStatus(201);
 		} else {
 			resp.setStatus(406);
 		}
-  
+		}
 //			
 	}
 	

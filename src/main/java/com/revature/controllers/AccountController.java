@@ -127,6 +127,10 @@ public class AccountController {
 	}
 
 	public void withdraw(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		
+		if (req.getSession(false) == null) {
+			return;
+		}
 
 		HttpSession ses = req.getSession();
 
@@ -158,12 +162,14 @@ public class AccountController {
 			out.print(om.writeValueAsString(m));
 			resp.setStatus(400);
 		}
+		
+	
 
 		if ((user.getRole().getRoleId() == 1) || user.getUserId() == accountwd.getUser().getUserId()) {
 
 			if (accService.withdraw(bDto, s)) {
 				Message m = new Message();
-				m.setMessage(bDto.balance + " has been withdrawn from your accout.");
+				m.setMessage(bDto.amount + " has been withdrawn from your accout.");
 				out.print(om.writeValueAsString(m));
 				resp.setStatus(201);
 			} else {
