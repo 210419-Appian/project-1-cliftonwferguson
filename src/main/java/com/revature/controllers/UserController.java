@@ -139,6 +139,9 @@ public class UserController {
 				out.print(om.writeValueAsString(udao.findByName(userdto.username)));
 				HttpSession ses = req.getSession();
 				ses.setAttribute("username", userdto.username);
+				Message m = new Message();
+					m.setMessage("You have logged in.");
+				out.print(om.writeValueAsString(m));
 				resp.setStatus(200);
 			} else {
 				Message m = new Message();

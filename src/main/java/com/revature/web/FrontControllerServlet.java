@@ -57,10 +57,10 @@ public class FrontControllerServlet extends HttpServlet {
 				uController.logout(req, resp);
 			} break;
 		
-		case "getaccountbyid":   // working
+		case "getaccountbyid":  
 			if (req.getMethod().equals("GET")) {
 				int id = Integer.parseInt(sections[1]);
-				uController.getAccount(resp, id);
+				accController.getAccount(req, resp, id);
 			} break;
 		case "users":
 			if (req.getMethod().equals("GET")) {
