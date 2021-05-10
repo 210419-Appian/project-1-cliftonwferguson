@@ -56,7 +56,6 @@ public class FrontControllerServlet extends HttpServlet {
 			if (req.getMethod().equals("POST")) {
 				uController.logout(req, resp);
 			} break;
-		
 		case "getaccountbyid":  
 			if (req.getMethod().equals("GET")) {
 				int id = Integer.parseInt(sections[1]);
@@ -88,6 +87,10 @@ public class FrontControllerServlet extends HttpServlet {
 			if (req.getMethod().equals("POST")) {
 				accController.withdraw(req, resp);
 			}break;
+		case "deposit":
+			 if (req.getMethod().equals("POST")) {
+				 accController.deposit(req, resp);
+			 } break;
 		}
 	}
 }

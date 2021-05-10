@@ -34,6 +34,23 @@ public class AccountService {
 		}
 	}
 	
+	public boolean deposit(BalanceDTO bDto, String s) {
+		
+	Account account = acDao.findById(bDto.accountId);
+		
+		if (account == null) {
+			return false;
+		}
+		System.out.println(account);
+		
+			account.setBalance(account.getBalance() + bDto.amount);
+			System.out.println(account.getBalance());
+			acDao.updateAccount(account);
+			return true;
+		
+		}
+	
+	
 	public List<Account> getAllAccounts() {
 		List<Account> list = acDao.findAll();
 		return list;

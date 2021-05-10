@@ -27,6 +27,61 @@ public class AccountController {
 	private static UserDAOImpl uDao = new UserDAOImpl();
 	private static String s = new String();
 	private static AccountDAOImple aDao = new AccountDAOImple();
+	
+	public void deposit(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		if (req.getSession(false) == null) {
+			return;
+		}
+
+		HttpSession ses = req.getSession();
+
+		s = (String) ses.getAttribute("username");
+
+		BufferedReader reader = req.getReader();
+
+		StringBuilder sb = new StringBuilder();
+
+		String line = reader.readLine();
+
+		while (line != null) {
+			sb.append(line);
+			line = reader.readLine();
+		}
+
+		String body = new String(sb);
+
+		BalanceDTO bDto = om.readValue(body, BalanceDTO.class);
+
+		out = resp.getWriter();
+
+		User user = uDao.findByName(s);
+
+		Account accountwd = aDao.findById(bDto.accountId);
+		if (accountwd == null) {
+			Message m = new Message();
+			m.setMessage("Invalid Account Identification");
+			out.print(om.writeValueAsString(m));
+			resp.setStatus(400);
+		}
+		
+	
+
+		if ((user.getRole().getRoleId() == 1) || user.getUserId() == accountwd.getUser().getUserId()) {
+
+			if (accService.deposit(bDto, s)) {
+				Message m = new Message();
+				m.setMessage(bDto.amount + " has been withdrawn from your accout.");
+				out.print(om.writeValueAsString(m));
+				resp.setStatus(201);
+			} else {
+				Message m = new Message();
+				m.setMessage("You are not allowed to perform this action.");
+				PrintWriter out = resp.getWriter();
+				out.print(om.writeValueAsString(m));
+				resp.setStatus(401);
+			}
+		}
+	}
 
 	public void addAccount(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		BufferedReader reader = req.getReader();
