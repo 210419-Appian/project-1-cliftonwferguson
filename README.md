@@ -1,5 +1,5 @@
 # Banking API
-The Banking API will manage the bank accounts of its users. It will be managed by the Bank's employees and admins. Employees and Admins count as Standard users with additional abilities.
+The Banking API will manage the bank accounts of its users. The Bank has three types of users: Admins, Employees, and Standard Users.  Admins and Employees are both considered standard users with additional functionality.  All users are able to log in and out using their username and password.  Standard users are only able to see their accounts. All users are able to transfer funds within their owned accounts.  Admin users are able to transfer funds between different user accounts.  
 
 ## Technologies Used
 * Spring Tool Suite
